@@ -1,17 +1,14 @@
 import java.util.Random;
 
-// Song Class
 class Song {
     private String title;
     private String artist;
 
-    // Constructor
     public Song(String title, String artist) {
         this.title = title;
         this.artist = artist;
     }
 
-    // Getter methods
     public String getTitle() {
         return title;
     }
@@ -21,18 +18,15 @@ class Song {
     }
 }
 
-// Playlist Class
 class Playlist {
     private Song[] songs;
     private int count;
 
-    // Constructor
     public Playlist(int size) {
         songs = new Song[size];
         count = 0;
     }
 
-    // Add song to playlist
     public void addSong(Song s) {
         if (count < songs.length) {
             songs[count] = s;
@@ -43,7 +37,6 @@ class Playlist {
         }
     }
 
-    // Display playlist
     public void displayPlaylist() {
         if (count == 0) {
             System.out.println("Playlist is empty.");
@@ -57,14 +50,12 @@ class Playlist {
         }
     }
 
-    // Shuffle playlist (Fisher-Yates)
     public void shufflePlaylist() {
         Random rand = new Random();
 
         for (int i = count - 1; i > 0; i--) {
             int j = rand.nextInt(i + 1);
 
-            // Swap songs
             Song temp = songs[i];
             songs[i] = songs[j];
             songs[j] = temp;
@@ -74,25 +65,19 @@ class Playlist {
     }
 }
 
-// Main Class
 public class Main {
     public static void main(String[] args) {
 
-        // Create playlist
         Playlist playlist = new Playlist(10);
 
-        // Add songs
         playlist.addSong(new Song("Believer", "Imagine Dragons"));
         playlist.addSong(new Song("Shape of You", "Ed Sheeran"));
         playlist.addSong(new Song("Blinding Lights", "The Weeknd"));
 
-        // Display original playlist
         playlist.displayPlaylist();
 
-        // Shuffle playlist
         playlist.shufflePlaylist();
 
-        // Display shuffled playlist
         playlist.displayPlaylist();
     }
 }
