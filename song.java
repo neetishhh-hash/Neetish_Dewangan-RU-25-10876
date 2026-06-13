@@ -1,25 +1,12 @@
 import java.util.*;
 
 public class MusicPlaylistManagementSystem {
-
-    static class Song {
-        String title, artist;
-
-        Song(String title, String artist) {
-            this.title = title;
-            this.artist = artist;
-        }
-
-        public String toString() {
-            return title + " - " + artist;
-        }
-    }
+    static String[] titles = new String[100];
+    static String[] artists = new String[100];
+    static int count = 0;
 
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
-        ArrayList<Song> playlist = new ArrayList<>();
-
         int choice;
 
         do {
@@ -29,36 +16,36 @@ public class MusicPlaylistManagementSystem {
             System.out.println("3. Shuffle Playlist");
             System.out.println("4. Exit");
             System.out.print("Enter Choice: ");
-
             choice = sc.nextInt();
             sc.nextLine();
 
             switch (choice) {
-
                 case 1:
                     System.out.print("Enter Song Title: ");
-                    String title = sc.nextLine();
-
+                    titles[count] = sc.nextLine();
                     System.out.print("Enter Artist Name: ");
-                    String artist = sc.nextLine();
-
-                    playlist.add(new Song(title, artist));
+                    artists[count] = sc.nextLine();
+                    count++;
                     System.out.println("Song Added!");
                     break;
 
                 case 2:
-                    if (playlist.isEmpty()) {
+                    if (count == 0) {
                         System.out.println("Playlist is Empty.");
                     } else {
                         System.out.println("\nPlaylist:");
-                        for (Song s : playlist) {
-                            System.out.println(s);
+                        for (int i = 0; i < count; i++) {
+                            System.out.println(titles[i] + " - " + artists[i]);
                         }
                     }
                     break;
 
                 case 3:
-                    Collections.shuffle(playlist);
+                    for (int i = count - 1; i > 0; i--) {
+                        int j = (int)(Math.random() * (i + 1));
+                        String tempT = titles[i]; titles[i] = titles[j]; titles[j] = tempT;
+                        String tempA = artists[i]; artists[i] = artists[j]; artists[j] = tempA;
+                    }
                     System.out.println("Playlist Shuffled!");
                     break;
 
@@ -69,7 +56,6 @@ public class MusicPlaylistManagementSystem {
                 default:
                     System.out.println("Invalid Choice!");
             }
-
         } while (choice != 4);
 
         sc.close();
